@@ -32,6 +32,45 @@ switch ($segment0) {
         }
         break;
 
+    case 'tim-kiem': // Tìm kiếm sản phẩm: /tim-kiem?q=...
+        (new SanPhamController())->timKiem();
+        break;
+
+    // ---- Giỏ hàng ----
+    case 'gio-hang':
+        if ($segment1 === 'them') (new GioHangController())->them();               // POST
+        elseif ($segment1 === 'cap-nhat') (new GioHangController())->capNhat();     // POST
+        elseif ($segment1 === 'xoa') (new GioHangController())->xoa($segment2);     // GET
+        else (new GioHangController())->xem();                                      // GET /gio-hang
+        break;
+
+    case 'thanh-toan': // Trang thanh toán: GET hiện form, POST xử lý đặt hàng
+        $_SERVER['REQUEST_METHOD'] === 'POST'
+            ? (new GioHangController())->xuLyThanhToan()
+            : (new GioHangController())->thanhToan();
+        break;
+
+    case 'dat-hang-thanh-cong':
+        (new GioHangController())->thanhCong();
+        break;
+
+    // ---- Tài khoản khách hàng ----
+    case 'dang-ky':
+        (new KhachHangController())->dangKy();
+        break;
+
+    case 'dang-nhap':
+        (new KhachHangController())->dangNhap();
+        break;
+
+    case 'dang-xuat':
+        (new KhachHangController())->dangXuat();
+        break;
+
+    case 'tai-khoan-cua-toi':
+        (new KhachHangController())->taiKhoanCuaToi();
+        break;
+
     // ===================== KHU VỰC ADMIN (quản trị) =====================
     case 'admin':
         switch ($segment1) {
@@ -74,6 +113,13 @@ switch ($segment0) {
                 elseif ($action === 'them') (new AdminTaiKhoanController())->them();
                 elseif ($action === 'sua') (new AdminTaiKhoanController())->sua($segments[3] ?? 0);
                 elseif ($action === 'xoa') (new AdminTaiKhoanController())->xoa($segments[3] ?? 0);
+                break;
+
+            // ---- Quản lý đơn hàng ----
+            case 'don-hang':
+                if ($segment2 === '') (new AdminDonHangController())->danhSach();
+                elseif ($segment2 === 'chi-tiet') (new AdminDonHangController())->chiTiet($segments[3] ?? 0);
+                elseif ($segment2 === 'cap-nhat-trang-thai') (new AdminDonHangController())->capNhatTrangThai($segments[3] ?? 0);
                 break;
 
             default:

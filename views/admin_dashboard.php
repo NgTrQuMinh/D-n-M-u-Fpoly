@@ -3,7 +3,7 @@
 ?>
 
 <div class="row g-3">
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card text-white bg-primary shadow-sm">
             <div class="card-body">
                 <h6><i class="bi bi-box-seam"></i> Tổng sản phẩm</h6>
@@ -11,7 +11,7 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card text-white bg-success shadow-sm">
             <div class="card-body">
                 <h6><i class="bi bi-tags"></i> Tổng danh mục</h6>
@@ -19,11 +19,19 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card text-white bg-warning shadow-sm">
             <div class="card-body">
                 <h6><i class="bi bi-people"></i> Tổng tài khoản</h6>
                 <h2><?= $tongTaiKhoan ?></h2>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-white bg-danger shadow-sm">
+            <div class="card-body">
+                <h6><i class="bi bi-receipt"></i> Tổng đơn hàng</h6>
+                <h2><?= $tongDonHang ?></h2>
             </div>
         </div>
     </div>

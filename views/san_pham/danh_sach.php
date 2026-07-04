@@ -21,8 +21,22 @@
                                 <?= htmlspecialchars($sp['ten_san_pham']) ?>
                             </a>
                         </h6>
-                        <p class="text-danger fw-bold mb-0"><?= dinh_dang_tien($sp['gia']) ?></p>
-                        <p class="text-muted small mb-0"><i class="bi bi-eye"></i> <?= (int)$sp['luot_xem'] ?> lượt xem</p>
+                        <p class="text-danger fw-bold mb-2"><?= dinh_dang_tien($sp['gia']) ?></p>
+                        <p class="text-muted small mb-2"><i class="bi bi-eye"></i> <?= (int)$sp['luot_xem'] ?> lượt xem</p>
+
+                        <!-- Nút thêm nhanh vào giỏ, số lượng mặc định = 1 -->
+                        <?php if ($sp['so_luong'] > 0): ?>
+                            <form action="<?= BASE_URL ?>gio-hang/them" method="POST">
+                                <input type="hidden" name="san_pham_id" value="<?= $sp['id'] ?>">
+                                <input type="hidden" name="so_luong" value="1">
+                                <input type="hidden" name="tro_ve" value="<?= BASE_URL ?>danh-muc/<?= $danhMuc['slug'] ?>">
+                                <button type="submit" class="btn btn-sm btn-outline-danger w-100">
+                                    <i class="bi bi-cart-plus"></i> Thêm vào giỏ
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <span class="badge bg-secondary">Hết hàng</span>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>

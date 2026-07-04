@@ -27,6 +27,9 @@
                     <a class="nav-link text-light" href="<?= BASE_URL ?>admin/san-pham"><i class="bi bi-box-seam"></i> Sản phẩm</a>
                 </li>
                 <li class="nav-item">
+                    <a class="nav-link text-light" href="<?= BASE_URL ?>admin/don-hang"><i class="bi bi-receipt"></i> Đơn hàng</a>
+                </li>
+                <li class="nav-item">
                     <a class="nav-link text-light" href="<?= BASE_URL ?>admin/tai-khoan"><i class="bi bi-people"></i> Tài khoản</a>
                 </li>
                 <li class="nav-item mt-4">

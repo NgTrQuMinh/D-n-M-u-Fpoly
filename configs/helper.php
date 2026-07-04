@@ -62,13 +62,24 @@ if (!function_exists('dinh_dang_tien')) {
     }
 }
 
-// Kiểm tra admin đã đăng nhập chưa, chưa thì đá về trang đăng nhập
-if (!function_exists('kiem_tra_dang_nhap_admin')) {
-    function kiem_tra_dang_nhap_admin()
+// Kiểm tra khách hàng đã đăng nhập chưa (dùng session riêng, khác với session admin)
+if (!function_exists('kiem_tra_dang_nhap_khach_hang')) {
+    function kiem_tra_dang_nhap_khach_hang()
     {
-        if (empty($_SESSION['admin'])) {
-            header('Location: ' . BASE_URL . 'admin/dang-nhap');
-            exit; // Bắt buộc exit để code phía sau không chạy tiếp
+        if (empty($_SESSION['khach_hang'])) {
+            header('Location: ' . BASE_URL . 'dang-nhap');
+            exit;
         }
+    }
+}
+
+// Đếm tổng số sản phẩm đang có trong giỏ hàng (hiển thị badge số lượng trên navbar)
+if (!function_exists('dem_so_luong_gio_hang')) {
+    function dem_so_luong_gio_hang()
+    {
+        if (empty($_SESSION['gio_hang'])) {
+            return 0;
+        }
+        return array_sum($_SESSION['gio_hang']); // Cộng dồn số lượng của từng sản phẩm trong giỏ
     }
 }

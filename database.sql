@@ -82,3 +82,34 @@ INSERT INTO binh_luan (san_pham_id, ho_ten, noi_dung, diem_danh_gia, ngay_tao) V
 (3, 'Phạm Thị D', 'Quần đẹp nhưng hơi rộng so với size thường mặc.', 4, NOW()),
 (5, 'Hoàng Văn E', 'Giày êm, đi cả ngày không đau chân, quá ưng ý!', 5, NOW()),
 (5, 'Đỗ Thị F', 'Giao hàng nhanh, giày y hình.', 5, NOW());
+
+-- ============================================
+-- NÂNG CẤP: GIỎ HÀNG + ĐẶT HÀNG (chạy thêm phần này nếu đã có CSDL cũ)
+-- ============================================
+
+-- Bảng đơn hàng (thông tin người mua lưu trực tiếp, không bắt buộc đăng nhập)
+CREATE TABLE don_hang (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    tai_khoan_id INT NULL,                      -- NULL nếu khách mua không đăng nhập
+    ho_ten VARCHAR(150) NOT NULL,
+    so_dien_thoai VARCHAR(20) NOT NULL,
+    dia_chi VARCHAR(255) NOT NULL,
+    ghi_chu TEXT,
+    tong_tien DECIMAL(14,0) NOT NULL DEFAULT 0,
+    trang_thai ENUM('cho_xu_ly','dang_giao','hoan_thanh','da_huy') NOT NULL DEFAULT 'cho_xu_ly',
+    ngay_tao DATETIME NOT NULL,
+    FOREIGN KEY (tai_khoan_id) REFERENCES tai_khoan(id) ON DELETE SET NULL
+) ENGINE=InnoDB;
+
+-- Bảng chi tiết đơn hàng - LƯU LẠI tên/giá tại thời điểm mua (không phụ thuộc sản phẩm bị sửa/xoá sau này)
+CREATE TABLE don_hang_chi_tiet (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    don_hang_id INT NOT NULL,
+    san_pham_id INT NULL,                       -- NULL nếu sản phẩm gốc đã bị xoá
+    ten_san_pham VARCHAR(255) NOT NULL,          -- snapshot tên sản phẩm lúc đặt hàng
+    gia DECIMAL(12,0) NOT NULL,                  -- snapshot giá lúc đặt hàng
+    so_luong INT NOT NULL,
+    thanh_tien DECIMAL(14,0) NOT NULL,
+    FOREIGN KEY (don_hang_id) REFERENCES don_hang(id) ON DELETE CASCADE,
+    FOREIGN KEY (san_pham_id) REFERENCES san_pham(id) ON DELETE SET NULL
+) ENGINE=InnoDB;

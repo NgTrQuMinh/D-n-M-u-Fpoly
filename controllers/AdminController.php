@@ -10,11 +10,13 @@ class AdminController
         $sanPhamModel = new SanPhamModel();
         $danhMucModel = new DanhMucModel();
         $taiKhoanModel = new TaiKhoanModel();
+        $donHangModel = new DonHangModel();
 
-        // Thống kê nhanh: tổng số sản phẩm / danh mục / tài khoản
+        // Thống kê nhanh: tổng số sản phẩm / danh mục / tài khoản / đơn hàng
         $tongSanPham  = count($sanPhamModel->layTatCa());
         $tongDanhMuc  = count($danhMucModel->layTatCa());
         $tongTaiKhoan = count($taiKhoanModel->layTatCa());
+        $tongDonHang  = count($donHangModel->layTatCa());
 
         $title = 'Tổng quan hệ thống';
         $view  = 'admin_dashboard';

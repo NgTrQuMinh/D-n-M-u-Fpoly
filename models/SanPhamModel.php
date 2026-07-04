@@ -69,6 +69,27 @@ class SanPhamModel extends BaseModel
         $stmt->execute(['id' => $id]);
     }
 
+    // Tìm kiếm sản phẩm theo tên (dùng cho ô search trên navbar)
+    public function timKiem($tuKhoa)
+    {
+        $sql = "SELECT sp.*, dm.ten_danh_muc
+                FROM san_pham sp
+                JOIN danh_muc dm ON dm.id = sp.danh_muc_id
+                WHERE sp.ten_san_pham LIKE :tu_khoa
+                ORDER BY sp.ngay_tao DESC";
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute(['tu_khoa' => '%' . $tuKhoa . '%']);
+        return $stmt->fetchAll();
+    }
+
+    // Giảm số lượng tồn kho sau khi khách đặt hàng thành công
+    public function giamSoLuongKho($id, $soLuongDat)
+    {
+        $sql = "UPDATE {$this->table} SET so_luong = so_luong - :so_luong WHERE id = :id AND so_luong >= :so_luong2";
+        $stmt = $this->pdo->prepare($sql);
+        return $stmt->execute(['so_luong' => $soLuongDat, 'so_luong2' => $soLuongDat, 'id' => $id]);
+    }
+
     // Danh sách sản phẩm kèm tên danh mục, dùng cho trang quản trị (admin)
     public function layTatCaKemDanhMuc()
     {

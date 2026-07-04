@@ -32,6 +32,21 @@
         <p><strong>Số lượng còn lại:</strong> <?= (int)$sanPham['so_luong'] ?></p>
         <p><strong>Lượt xem:</strong> <?= (int)$sanPham['luot_xem'] ?></p>
 
+        <!-- ===== FORM THÊM VÀO GIỎ HÀNG ===== -->
+        <?php if ($sanPham['so_luong'] > 0): ?>
+            <form action="<?= BASE_URL ?>gio-hang/them" method="POST" class="d-flex align-items-center gap-2 mt-3">
+                <input type="hidden" name="san_pham_id" value="<?= $sanPham['id'] ?>">
+                <input type="hidden" name="tro_ve" value="<?= BASE_URL ?>san-pham/<?= $sanPham['slug'] ?>">
+                <input type="number" name="so_luong" value="1" min="1" max="<?= $sanPham['so_luong'] ?>"
+                       class="form-control" style="width:90px">
+                <button type="submit" class="btn btn-danger btn-lg">
+                    <i class="bi bi-cart-plus"></i> Thêm vào giỏ hàng
+                </button>
+            </form>
+        <?php else: ?>
+            <div class="alert alert-warning mt-3">Sản phẩm tạm hết hàng.</div>
+        <?php endif; ?>
+
         <hr>
         <h5>Mô tả sản phẩm</h5>
         <p style="white-space:pre-line"><?= htmlspecialchars($sanPham['mo_ta']) ?></p>
