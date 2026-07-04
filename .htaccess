@@ -1,0 +1,7 @@
+Options -MultiViews
+RewriteEngine On
+
+# Nếu không phải file/thư mục có thật thì chuyển hết về index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [QSA,L]
