@@ -1,0 +1,168 @@
+/* ============================================================
+   THEME: THỜI TRANG XA XỈ - Đen tuyền / Vàng kim / Trắng
+   File này nạp SAU bootstrap.min.css để ghi đè màu mặc định
+   ============================================================ */
+
+/* ===== 1. BIẾN MÀU DÙNG CHUNG (đổi màu ở đây là đổi toàn bộ site) ===== */
+:root {
+    --den-tuyen: #111111;   /* Đen tuyền - màu chủ đạo, dùng cho nền tối, chữ chính */
+    --vang-kim: #D4AF37;    /* Vàng kim - màu nhấn, dùng cho nút, giá tiền, viền hover */
+    --vang-kim-dam: #b8952c; /* Vàng kim đậm hơn - dùng khi hover/active */
+    --trang: #FFFFFF;       /* Trắng - nền sáng, chữ trên nền tối */
+    --do-tram: #7a2323;     /* Đỏ trầm - CHỈ dùng riêng cho hành động Xoá/Lỗi để dễ nhận biết */
+    --kem-nhat: #faf8f3;    /* Kem nhạt - nền phụ, dịu mắt hơn trắng thuần */
+}
+
+/* ===== 2. FONT CHỮ SANG TRỌNG ===== */
+/* Playfair Display: chữ tiêu đề kiểu serif thanh lịch. Jost: chữ nội dung hiện đại, dễ đọc */
+body {
+    font-family: 'Jost', -apple-system, sans-serif;
+    background-color: var(--trang);
+    color: var(--den-tuyen);
+}
+
+h1, h2, h3, h4, h5, h6,
+.navbar-brand,
+.card-title {
+    font-family: 'Playfair Display', serif; /* Font tiêu đề đặc trưng phong cách xa xỉ */
+    letter-spacing: .3px;
+}
+
+/* ===== 3. NAVBAR + FOOTER + SIDEBAR ADMIN + BẢNG TỐI: nền đen tuyền ===== */
+.navbar.bg-dark,
+.bg-dark,
+footer.bg-dark,
+table.table-dark thead {
+    background-color: var(--den-tuyen) !important;
+}
+
+.navbar-brand { color: var(--vang-kim) !important; } /* Logo shop nổi bật màu vàng kim */
+.navbar .nav-link { color: var(--trang) !important; text-transform: uppercase; font-size: .88rem; letter-spacing: .5px; }
+.navbar .nav-link:hover,
+.navbar-brand:hover { color: var(--vang-kim) !important; }
+
+/* ===== 4. CARD SẢN PHẨM: viền mảnh, hover nổi viền vàng kim sang trọng ===== */
+.card {
+    background-color: var(--trang);
+    border: 1px solid #e7e1d2;
+    border-radius: 2px; /* Bo góc nhẹ, không bo tròn nhiều để giữ nét tối giản sang trọng */
+    transition: box-shadow .25s ease, border-color .25s ease, transform .2s ease;
+}
+.card:hover {
+    border-color: var(--vang-kim);
+    box-shadow: 0 6px 20px rgba(212, 175, 55, .22);
+    transform: translateY(-2px);
+}
+
+/* ===== 5. NÚT BẤM ===== */
+/* Nút chính (Thêm giỏ hàng, Đăng nhập, Cập nhật...): nền vàng kim - chữ đen, hover đảo ngược */
+.btn-primary, .btn-success {
+    background-color: var(--vang-kim) !important;
+    border-color: var(--vang-kim) !important;
+    color: var(--den-tuyen) !important;
+    font-weight: 600;
+}
+.btn-primary:hover, .btn-success:hover,
+.btn-primary:focus, .btn-success:focus {
+    background-color: var(--den-tuyen) !important;
+    border-color: var(--vang-kim) !important;
+    color: var(--vang-kim) !important;
+}
+
+/* Nút Sửa (btn-warning): viền vàng kim - nền trắng, hover đổ vàng kim */
+.btn-warning {
+    background-color: var(--trang) !important;
+    border-color: var(--vang-kim) !important;
+    color: var(--den-tuyen) !important;
+    font-weight: 600;
+}
+.btn-warning:hover {
+    background-color: var(--vang-kim) !important;
+    color: var(--den-tuyen) !important;
+}
+
+/* Nút phụ / Huỷ (btn-secondary): viền đen tuyền */
+.btn-secondary {
+    background-color: var(--trang) !important;
+    border-color: var(--den-tuyen) !important;
+    color: var(--den-tuyen) !important;
+}
+.btn-secondary:hover {
+    background-color: var(--den-tuyen) !important;
+    color: var(--trang) !important;
+}
+
+/* Nút Xoá / nguy hiểm: GIỮ tông đỏ trầm riêng để không nhầm với hành động thường */
+.btn-danger {
+    background-color: var(--do-tram) !important;
+    border-color: var(--do-tram) !important;
+}
+.btn-danger:hover {
+    background-color: #5e1b1b !important;
+    border-color: #5e1b1b !important;
+}
+
+.btn-outline-danger {
+    border-color: var(--do-tram) !important;
+    color: var(--do-tram) !important;
+}
+.btn-outline-danger:hover {
+    background-color: var(--do-tram) !important;
+    color: var(--trang) !important;
+}
+
+.btn-outline-secondary {
+    border-color: var(--den-tuyen) !important;
+    color: var(--den-tuyen) !important;
+}
+.btn-outline-secondary:hover {
+    background-color: var(--den-tuyen) !important;
+    color: var(--trang) !important;
+}
+
+/* Nút trên nền tối (navbar: Tìm kiếm, Giỏ hàng, Quản trị...) */
+.btn-outline-light {
+    border-color: var(--vang-kim) !important;
+    color: var(--trang) !important;
+}
+.btn-outline-light:hover {
+    background-color: var(--vang-kim) !important;
+    color: var(--den-tuyen) !important;
+    border-color: var(--vang-kim) !important;
+}
+
+/* ===== 6. BADGE (nhãn danh mục, trạng thái) ===== */
+.badge.bg-secondary { background-color: var(--den-tuyen) !important; color: var(--vang-kim) !important; font-weight: 500; }
+.badge.bg-success   { background-color: var(--vang-kim) !important; color: var(--den-tuyen) !important; }
+.badge.bg-warning   { background-color: var(--vang-kim) !important; color: var(--den-tuyen) !important; }
+.badge.bg-danger    { background-color: var(--do-tram) !important; color: var(--trang) !important; }
+
+/* ===== 7. GIÁ TIỀN + SAO ĐÁNH GIÁ: dùng vàng kim thay vì đỏ/cam mặc định ===== */
+.text-danger { color: var(--vang-kim) !important; }  /* Áp dụng cho giá bán - điểm nhấn xa xỉ */
+.text-warning { color: var(--vang-kim) !important; } /* Sao đánh giá */
+.text-success { color: var(--vang-kim) !important; } /* Icon thành công */
+
+/* ===== 8. THÔNG BÁO (ALERT) ===== */
+.alert-success { background-color: #faf6e6; border-color: var(--vang-kim); color: #6b551a; }
+.alert-warning { background-color: #fbf3d9; border-color: var(--vang-kim); color: #6b551a; }
+.alert-info    { background-color: #eef0f1; border-color: var(--den-tuyen); color: #333; }
+.alert-danger  { background-color: #f7ecec; border-color: var(--do-tram); color: var(--do-tram); }
+
+/* ===== 9. FORM: viền vàng kim khi focus ===== */
+.form-control:focus, .form-select:focus {
+    border-color: var(--vang-kim);
+    box-shadow: 0 0 0 .2rem rgba(212, 175, 55, .25);
+}
+
+/* ===== 10. THẺ THỐNG KÊ DASHBOARD ADMIN (đổi màu 4 khối số liệu) ===== */
+.card.text-white.bg-primary { background-color: var(--den-tuyen) !important; color: var(--vang-kim) !important; }
+.card.text-white.bg-success { background-color: var(--vang-kim) !important; color: var(--den-tuyen) !important; }
+.card.text-white.bg-warning { background-color: var(--den-tuyen) !important; color: var(--vang-kim) !important; border: 1px solid var(--vang-kim); }
+.card.text-white.bg-danger  { background-color: var(--do-tram) !important; color: var(--trang) !important; }
+
+/* ===== 11. SIDEBAR ADMIN: menu đang chọn nổi bật vàng kim ===== */
+.nav-pills .nav-link.text-light:hover { color: var(--vang-kim) !important; background-color: rgba(212,175,55,.08); }
+
+/* ===== 12. LINK CHUNG ===== */
+a { color: var(--den-tuyen); }
+a:hover { color: var(--vang-kim-dam); }
