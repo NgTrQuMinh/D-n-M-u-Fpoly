@@ -62,6 +62,17 @@ if (!function_exists('dinh_dang_tien')) {
     }
 }
 
+// Kiểm tra admin đã đăng nhập chưa, chưa thì đá về trang đăng nhập
+if (!function_exists('kiem_tra_dang_nhap_admin')) {
+    function kiem_tra_dang_nhap_admin()
+    {
+        if (empty($_SESSION['admin'])) {
+            header('Location: ' . BASE_URL . 'admin/dang-nhap');
+            exit; // Bắt buộc exit để code phía sau không chạy tiếp
+        }
+    }
+}
+
 // Kiểm tra khách hàng đã đăng nhập chưa (dùng session riêng, khác với session admin)
 if (!function_exists('kiem_tra_dang_nhap_khach_hang')) {
     function kiem_tra_dang_nhap_khach_hang()

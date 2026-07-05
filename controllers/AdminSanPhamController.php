@@ -23,9 +23,10 @@ class AdminSanPhamController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $du_lieu = $this->layDuLieuTuForm();
 
-            // Validate cơ bản: tên và danh mục bắt buộc phải có
-            if ($du_lieu['ten_san_pham'] === '' || (int)$du_lieu['danh_muc_id'] <= 0) {
-                $_SESSION['thong_bao'] = ['loai' => 'danger', 'noi_dung' => 'Vui lòng nhập đầy đủ Tên sản phẩm và chọn Danh mục!'];
+            // Kiểm tra dữ liệu hợp lệ trước khi lưu
+            $loi = $this->kiemTraDuLieu($du_lieu);
+            if ($loi !== null) {
+                $_SESSION['thong_bao'] = ['loai' => 'danger', 'noi_dung' => $loi];
                 header('Location: ' . BASE_URL . 'admin/san-pham/them');
                 exit;
             }
@@ -70,8 +71,9 @@ class AdminSanPhamController
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $du_lieu = $this->layDuLieuTuForm();
 
-            if ($du_lieu['ten_san_pham'] === '' || (int)$du_lieu['danh_muc_id'] <= 0) {
-                $_SESSION['thong_bao'] = ['loai' => 'danger', 'noi_dung' => 'Vui lòng nhập đầy đủ Tên sản phẩm và chọn Danh mục!'];
+            $loi = $this->kiemTraDuLieu($du_lieu);
+            if ($loi !== null) {
+                $_SESSION['thong_bao'] = ['loai' => 'danger', 'noi_dung' => $loi];
                 header('Location: ' . BASE_URL . 'admin/san-pham/sua/' . $id);
                 exit;
             }
@@ -118,5 +120,26 @@ class AdminSanPhamController
             'so_luong'     => (int)($_POST['so_luong'] ?? 0),
             'mo_ta'        => trim($_POST['mo_ta'] ?? ''),
         ];
+    }
+
+    // Kiểm tra dữ liệu form hợp lệ trước khi lưu, dùng chung cho cả Thêm và Sửa.
+    // Trả về null nếu hợp lệ, hoặc trả về chuỗi thông báo lỗi nếu có vấn đề.
+    private function kiemTraDuLieu($du_lieu)
+    {
+        if ($du_lieu['ten_san_pham'] === '') {
+            return 'Vui lòng nhập Tên sản phẩm!';
+        }
+
+        // Kiểm tra danh mục có thực sự tồn tại trong CSDL, tránh lỗi khi ai đó cố tình sửa giá trị gửi lên
+        $danhMuc = (new DanhMucModel())->timTheoId($du_lieu['danh_muc_id']);
+        if (!$danhMuc) {
+            return 'Danh mục không hợp lệ, vui lòng chọn lại!';
+        }
+
+        if ($du_lieu['gia'] < 0 || $du_lieu['so_luong'] < 0) {
+            return 'Giá bán và Số lượng phải là số không âm!';
+        }
+
+        return null; // Không có lỗi
     }
 }

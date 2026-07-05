@@ -21,6 +21,12 @@
 
 <body class="bg-light">
 
+    <?php
+    // Lấy danh sách danh mục để hiển thị lên menu - đặt ở đây (thay vì từng Controller) để mọi trang
+    // Client đều tự động có menu đầy đủ, không sợ trang nào bị quên truyền dữ liệu.
+    $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
+    ?>
+
     <!-- ===== MENU ĐIỀU HƯỚNG ===== -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container">

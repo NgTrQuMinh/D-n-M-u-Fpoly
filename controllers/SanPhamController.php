@@ -17,7 +17,6 @@ class SanPhamController
         }
 
         $danhSachSanPham = $sanPhamModel->layTheoDanhMuc($danhMuc['id']); // Lọc sản phẩm theo danh_muc_id
-        $danhSachDanhMuc = $danhMucModel->layDanhMucKemSoLuong();          // Sidebar danh mục
 
         $title = 'Danh mục: ' . $danhMuc['ten_danh_muc'];
         $view  = 'san_pham/danh_sach';
@@ -41,7 +40,6 @@ class SanPhamController
 
         $danhSachBinhLuan = $binhLuanModel->layTheoSanPham($sanPham['id']); // Danh sách bình luận & đánh giá
         $diemDanhGia      = $binhLuanModel->tinhDiemTrungBinh($sanPham['id']); // Điểm trung bình
-        $danhSachDanhMuc  = (new DanhMucModel())->layDanhMucKemSoLuong(); // Cho menu navbar
 
         // Lấy thông báo (nếu vừa gửi bình luận xong được redirect về đây)
         $thongBao = $_SESSION['thong_bao'] ?? null;
@@ -58,7 +56,6 @@ class SanPhamController
         $tuKhoa = trim($_GET['q'] ?? '');
 
         $danhSachSanPham = $tuKhoa === '' ? [] : (new SanPhamModel())->timKiem($tuKhoa);
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
 
         $title = 'Kết quả tìm kiếm: ' . $tuKhoa;
         $view  = 'san_pham/tim_kiem';

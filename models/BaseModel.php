@@ -37,10 +37,18 @@ class BaseModel
     // Thêm mới 1 bản ghi, $data dạng ['cot' => 'gia_tri', ...]
     public function them($data)
     {
-        $cols  = implode(',', array_keys($data));                       // ten,gia,...
-        $binds = implode(',', array_map(fn($c) => ":$c", array_keys($data))); // :ten,:gia,...
+        // Bước 1: Ghép danh sách tên cột, ví dụ: "ten_san_pham,gia,so_luong"
+        $danhSachCot = implode(',', array_keys($data));
 
-        $sql = "INSERT INTO {$this->table} ($cols) VALUES ($binds)";
+        // Bước 2: Ghép danh sách dấu giữ chỗ (placeholder), ví dụ: ":ten_san_pham,:gia,:so_luong"
+        // Dùng vòng lặp foreach cho dễ đọc thay vì hàm rút gọn
+        $danhSachGiuCho = [];
+        foreach (array_keys($data) as $tenCot) {
+            $danhSachGiuCho[] = ':' . $tenCot;
+        }
+        $danhSachGiuCho = implode(',', $danhSachGiuCho);
+
+        $sql = "INSERT INTO {$this->table} ($danhSachCot) VALUES ($danhSachGiuCho)";
         $stmt = $this->pdo->prepare($sql);
         $stmt->execute($data);
 
@@ -50,10 +58,14 @@ class BaseModel
     // Cập nhật 1 bản ghi theo id, $data dạng ['cot' => 'gia_tri', ...]
     public function capNhat($id, $data)
     {
-        // Ghép chuỗi "cot1 = :cot1, cot2 = :cot2, ..."
-        $set = implode(',', array_map(fn($c) => "$c = :$c", array_keys($data)));
+        // Ghép chuỗi kiểu: "ten_san_pham = :ten_san_pham, gia = :gia, ..."
+        $danhSachSet = [];
+        foreach (array_keys($data) as $tenCot) {
+            $danhSachSet[] = "$tenCot = :$tenCot";
+        }
+        $danhSachSet = implode(',', $danhSachSet);
 
-        $sql = "UPDATE {$this->table} SET $set WHERE id = :id";
+        $sql = "UPDATE {$this->table} SET $danhSachSet WHERE id = :id";
         $data['id'] = $id; // Gộp thêm id vào mảng để bind cùng lúc
 
         $stmt = $this->pdo->prepare($sql);

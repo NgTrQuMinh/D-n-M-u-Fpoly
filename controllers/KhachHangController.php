@@ -50,7 +50,6 @@ class KhachHangController
 
         $loi = $_SESSION['loi_dang_ky'] ?? null;
         unset($_SESSION['loi_dang_ky']);
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
         $title = 'Đăng ký tài khoản';
         $view  = 'khach_hang/dang_ky';
         require_once PATH_VIEW_MAIN;
@@ -89,7 +88,6 @@ class KhachHangController
 
         $loi = $_SESSION['loi_dang_nhap_kh'] ?? null;
         unset($_SESSION['loi_dang_nhap_kh']);
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
         $title = 'Đăng nhập';
         $view  = 'khach_hang/dang_nhap';
         require_once PATH_VIEW_MAIN;
@@ -111,7 +109,6 @@ class KhachHangController
         $donHangModel = new DonHangModel();
         $danhSachDonHang = $donHangModel->layTheoTaiKhoan($_SESSION['khach_hang']['id']);
 
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
         $title = 'Đơn hàng của tôi';
         $view  = 'khach_hang/don_hang_cua_toi';
         require_once PATH_VIEW_MAIN;

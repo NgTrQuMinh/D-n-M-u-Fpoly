@@ -8,7 +8,6 @@ class GioHangController
         $chiTietGioHang = $this->layChiTietGioHang(); // Lấy thông tin đầy đủ (tên, ảnh, giá...) từ session
         $tongTien = array_sum(array_column($chiTietGioHang, 'thanh_tien'));
 
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong(); // Cho menu navbar
         $title = 'Giỏ hàng của bạn';
         $view  = 'gio_hang/xem';
         require_once PATH_VIEW_MAIN;
@@ -90,7 +89,6 @@ class GioHangController
         $tongTien = array_sum(array_column($chiTietGioHang, 'thanh_tien'));
         $khachHang = $_SESSION['khach_hang'] ?? null; // Nếu đã đăng nhập thì điền sẵn thông tin
 
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
         $title = 'Thanh toán đơn hàng';
         $view  = 'gio_hang/thanh_toan';
         require_once PATH_VIEW_MAIN;
@@ -178,7 +176,6 @@ class GioHangController
         unset($_SESSION['don_hang_vua_tao']);
 
         $donHang = (new DonHangModel())->timTheoId($donHangId);
-        $danhSachDanhMuc = (new DanhMucModel())->layDanhMucKemSoLuong();
 
         $title = 'Đặt hàng thành công';
         $view  = 'gio_hang/thanh_cong';
